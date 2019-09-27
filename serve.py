@@ -14,11 +14,13 @@ while True:
         (grabbed, frame) = camera.read()  # grab the current frame
         frame = cv2.resize(frame, (640, 480))  # resize the frame
         encoded, buffer = cv2.imencode('.jpg', frame)
+        
         # bytes(data['imageData'], 'utf-8')
         # print(encoded)
         encoded_string = str(base64.b64encode(buffer))
         # print(encoded_string)
-        footage_socket.send_string(encoded_string)
+        # if len(encoded_string)%4 ==0:
+        footage_socket.send_string(str(encoded_string))
 
     except KeyboardInterrupt:
         camera.release()
